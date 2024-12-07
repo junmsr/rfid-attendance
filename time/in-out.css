@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* General styles */
+body {
+    font-family: "ubuntu", sans-serif;
+    background-color: #f9f5ff; /* Light purple background */
+    color: #C70039; /* Deep purple text */
+    margin: 0;
+    padding: 0;
+}
+
+.label-tag{
+    text-align: center;
+    color: #C70039; /* Medium purple */
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #C70039; /* Medium purple */
+    margin-top: 20px;
+}
+
+/* Input and button styles */
+input, button {
+    display: flex;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #C70039; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    outline: none;
+    width: 20%
+}
+
+input:focus {
+    border-color: #d23461; /* Light purple on focus */
+    box-shadow: 0 0 5px #d23461;
+}
+
+/* button {
+    background-color: #8e24aa;
+    color: #fff; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+} */
+
+button:hover {
+    background-color: #900C3F; /* Darker purple on hover */
+}
+
+button:active {
+    background-color: #900C3F; /* Even darker purple when clicked */
+}
+
+/* Output container styles */
+#output {
+    margin: 20px auto;
+    width: 80%;
+    padding: 20px;
+    border: 1px solid #d1c4e9; /* Light purple border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f3e5f5; /* Very light purple background */
+    color: #900C3F; /* Deep purple text */
+}
+
+/* Output text styles */
+#output p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    input, button, #output {
+        width: 20%; /* Adjust width for smaller devices */
+    }
+}
+
+/* Date and Time Container Styles */
+#datetime-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #d1c4e9; /* Light purple border */
+    border-radius: 5px;
+    background-color: #f3e5f5; /* Light purple background */
+    color: #900C3F; /* Deep purple text */
+    width: 80%;
+    font-size: 18px;
+}
+
