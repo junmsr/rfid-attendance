@@ -18,7 +18,7 @@
             die('Connect Error('.mysqli_connect_errno().')'.mysqli_connect_error());
         } else{
             $SELECT = "SELECT rfid From logs Where rfid = ? Limit 1";
-            $INSERT = "INSERT Into logs (rfid, role, surname, fname, contact, gender) values (?, ?, ?, ?, ?, ?)";
+            $INSERT = "INSERT Into logs (rfid, position, surname, fname, contact, gender) values (?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($SELECT);
             $stmt->bind_param("s", $rfid);

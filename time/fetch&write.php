@@ -17,6 +17,10 @@ if ($conn->connect_error) {
 // Check if RFID tag is provided
 if (isset($_POST['rfid_tag']) && !empty($_POST['rfid_tag'])) {
     $rfid = $_POST['rfid_tag'];
+    $c_time = $_POST['time_in'];
+    $c_date = $_POST['date_in'];
+    $in = "in";
+    $out = "out";
 
     // Prepare the query
     $query = "SELECT role, surname, fname, contact, gender FROM logs WHERE rfid = ?";
@@ -37,7 +41,9 @@ if (isset($_POST['rfid_tag']) && !empty($_POST['rfid_tag'])) {
             "surname" => $surname,
             "fname" => $fname,
             "contact" => $contact,
-            "gender" => $gender
+            "gender" => $gender,
+            "c_time" => $c_time,
+            "c_date" => $c_date
         ]);
     } else {
         // RFID not found
@@ -51,4 +57,3 @@ if (isset($_POST['rfid_tag']) && !empty($_POST['rfid_tag'])) {
 
 $conn->close();
 ?>
-

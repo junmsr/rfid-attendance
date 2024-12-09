@@ -16,7 +16,7 @@
                 <li>
                     <a href="">
                         <span class="icon">
-                            <ion-icon name="cloudy-night-outline"></ion-icon>
+                            <img src="../assets/BISCAST.png" alt="#" width="60px" height="auto">
                         </span>
                         <span class="title">Admin Dashboard</span>
                     </a>
@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="../faculties/attendance.php">
                         <span class="icon">
                             <ion-icon name="calendar-outline"></ion-icon>
                         </span>

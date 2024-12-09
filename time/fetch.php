@@ -19,7 +19,7 @@ if (isset($_POST['rfid_tag']) && !empty($_POST['rfid_tag'])) {
     $rfid = $_POST['rfid_tag'];
 
     // Prepare the query
-    $query = "SELECT role, surname, fname, contact, gender FROM logs WHERE rfid = ?";
+    $query = "SELECT position, surname, fname, contact, gender FROM logs WHERE rfid = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $rfid);
     $stmt->execute();

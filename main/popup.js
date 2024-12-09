@@ -17,10 +17,10 @@ document.querySelector(".form-element button").addEventListener("click", functio
     // Get the input values
     const username = document.querySelector('input[type="text"]').value;
     const password = document.querySelector('input[type="password"]').value;
-
+    
     // Predefined credentials (for demonstration purposes only)
     const validUsername = "admin";
-    const validPassword = "password";
+    const validPassword = "capstone";
 
     // Check the credentials
     if (username === validUsername && password === validPassword) {

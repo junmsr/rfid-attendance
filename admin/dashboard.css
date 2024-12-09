@@ -353,6 +353,7 @@ form .gender-details .category{
     margin-right: 10px;
     border: 5px solid transparent;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 #dot-1:checked ~ .category .one,
@@ -383,6 +384,10 @@ form .button-reg input{
     border-radius: 5px;
     letter-spacing: 1px;
     background: var(--black1);
+}
+
+form .photo input[type="file"]{
+    display: none;
 }
 
 form .button-reg input:hover{
@@ -422,4 +427,9 @@ form .button-reg input:hover{
     line-height: 15px;
     border-radius: 15px;
     cursor: pointer;
+}
+
+.container .navigation .icon{
+    position: relative;
+    margin-top: 10px;
 }

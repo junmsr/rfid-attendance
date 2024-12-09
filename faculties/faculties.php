@@ -13,7 +13,7 @@
                 <li>
                     <a href="">
                         <span class="icon">
-                            <ion-icon name="cloudy-night-outline"></ion-icon>
+                            <img src="../assets/BISCAST.png" alt="#" width="60px" height="auto">
                         </span>
                         <span class="title">Admin Dashboard</span>
                     </a>
@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="attendance.php">
                         <span class="icon">
                             <ion-icon name="calendar-outline"></ion-icon>
                         </span>
@@ -83,7 +83,7 @@
                     if(!$conn){
                         die("Connection failed: ".$conn-> connect_error);
                     }
-                    $sql = "SELECT rfid, role, surname, fname, contact, gender from logs";
+                    $sql = "SELECT rfid, position, surname, fname, contact, gender from logs";
                     $result = $conn-> query($sql);
 
                     if($result-> num_rows > 0){
@@ -91,11 +91,12 @@
                             echo"<tbody>
                     <tr>
                         <td>".$row["rfid"]."</td>
-                        <td>".$row["role"]."</td>
+                        <td>".$row["position"]."</td>
                         <td>".$row["surname"]."</td>
                         <td>".$row["fname"]."</td>
                         <td>".$row["contact"]."</td>
                         <td>".$row["gender"]."</td>
+                        <td><a href='delete.php?id=".$row['rfid']."'>Delete</a></td>
                     </tr>
                 </tbody>";
                         }
@@ -118,7 +119,7 @@
         <div class="container-form" id="container-form">
             <div class="close-btn" id="close-btn">&times;</div>
             <form  method="POST" id="form">
-                <div class="title-form">Add Faculty</div>
+                <div class="title-form">Register</div>
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details" id="rfid">ID tag</span>
@@ -139,6 +140,12 @@
                     <div class="input-box">
                         <span class="details">Contact No.</span>
                         <input type="text" id="contact" placeholder="Contact Number" name="contact" required>
+                    </div>
+                    <br>
+                    <div class="photo">
+                        <!-- <span class="details">Upload an image</span> -->
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="upload">
+                        <label for="upload">Upload.</label>
                     </div>
                 </div>
                 <div class="gender-details">
@@ -161,13 +168,12 @@
                         </label>
                     </div>
                     <div class="button-reg">
-                        <input type="submit" id="register" value="Register">
+                        <input type="submit" id="register" value="Register" onclick="window.open('faculties.php', '_blank';location.reload();">
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div id="response"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

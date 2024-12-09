@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container" id="box">
-        <h1>WELCOME!<br>Select Your Role.</h1>
+        <h1>RFID-Based Attendance System</h1>
         <div class="button-group">
             <button id="admin-login" class="role-button admin-button"> <img src="../assets/human.png" width="50vh" height="auto" alt="#"><br>Admin</button><br>
             <button class="role-button user-button" onclick="location.href='../time/in-out.php';" ></a><img src="../assets/group.png" width="50vh" height="auto" alt="#"><br>User</button>

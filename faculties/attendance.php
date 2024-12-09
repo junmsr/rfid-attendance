@@ -13,7 +13,7 @@
                 <li>
                     <a href="">
                         <span class="icon">
-                            <ion-icon name="cloudy-night-outline"></ion-icon>
+                            <img src="../assets/BISCAST.png" alt="#" width="60px" height="auto">
                         </span>
                         <span class="title">Admin Dashboard</span>
                     </a>
@@ -71,8 +71,8 @@
                         <th>First Name</th>
                         <th>Contact #</th>
                         <th>Gender</th>
-                        <th>Time In</th>
-                        <th>Time Out</th>
+                        <th>Time</th>
+                        <th>in/out</th>
                         <th>Date</th>
                     </tr>
                 </thead>
@@ -82,7 +82,7 @@
                     if(!$conn){
                         die("Connection failed: ".$conn-> connect_error);
                     }
-                    $sql = "SELECT rfid, role, surname, fname, contact, gender,  time_in, time_out, date_in from attendance";
+                    $sql = "SELECT rfid, position, surname, fname, contact, gender,  time_log, in_out, date_log from time_table";
                     $result = $conn-> query($sql);
 
                     if($result-> num_rows > 0){
@@ -90,14 +90,14 @@
                             echo"<tbody>
                     <tr>
                         <td>".$row["rfid"]."</td>
-                        <td>".$row["role"]."</td>
+                        <td>".$row["position"]."</td>
                         <td>".$row["surname"]."</td>
                         <td>".$row["fname"]."</td>
                         <td>".$row["contact"]."</td>
                         <td>".$row["gender"]."</td>
-                        <td>".$row["time_in"]."</td>
-                        <td>".$row["time_out"]."</td>
-                        <td>".$row["date_in"]."</td>
+                        <td>".$row["time_log"]."</td>
+                        <td>".$row["in_out"]."</td>
+                        <td>".$row["date_log"]."</td>
                     </tr>
                 </tbody>";
                         }

@@ -27,7 +27,8 @@
         <p><strong>First Name:</strong> <span id="fname"></span></p>
         <p><strong>Contact   :</strong> <span id="contact"></span></p>
         <p><strong>Gender    :</strong> <span id="gender"></span></p>
-        <p><strong>Time in   :</strong> <span id="time"></span></p>
+        <p><strong>Time in   :</strong> <span id="time_in"></span></p>
+        <p><strong>Date   :</strong> <span id="date_in"></span></p>
     </div>
     <script src="time.js"></script>
     <script>
@@ -49,24 +50,30 @@
         $(document).ready(function() {
             $("#rfid-tag").on('input', function() {
                 var rfid = $(this).val(); // Get RFID input value
-                
+                var currentTime = new Date().toLocaleTimeString();
+                var currentDate = new Date().toLocaleDateString();
                 // Check if RFID tag is the expected length (e.g., 8 characters)
                 if (rfid.length === 8) {
                     // Send AJAX request
                     $.ajax({
                         url: "fetch&write.php", // Path to the PHP script
                         type: "POST",
-                        data: { rfid_tag: rfid }, // Send RFID as data
+                        data: { rfid_tag: rfid,
+                            time_in: currentTime,
+                            date_in: currentDate
+                         }, // Send RFID as data
                         success: function(response) {
                             try {
                                 var data = JSON.parse(response); // Parse JSON response
                                 if (data.success) {
                                     // Populate output fields
-                                    $("          #role").text(data.role);
-                                    $("          #surname").text(data.surname);
-                                    $("          #fname").text(data.fname);
-                                    $("          #contact").text(data.contact);
+                                    $("#role").text(data.role);
+                                    $("#surname").text(data.surname);
+                                    $("#fname").text(data.fname);
+                                    $("#contact").text(data.contact);
                                     $("#gender").text(data.gender);
+                                    $("#time_in").text(data.c_time);
+                                    $("#date_in").text(data.c_date);
                                 } else {
                                     alert(data.message);
                                 }
