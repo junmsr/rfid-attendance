@@ -1,0 +1,5 @@
+[09-Dec-2024 09:05:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'position' in 'field list' in C:\xampp\htdocs\rfid\time\fetch&write.php:28
+Stack trace:
+#0 C:\xampp\htdocs\rfid\time\fetch&write.php(28): mysqli->prepare('SELECT position...')
+#1 {main}
+  thrown in C:\xampp\htdocs\rfid\time\fetch&write.php on line 28
