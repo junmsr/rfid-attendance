@@ -77,6 +77,7 @@
                         <th>Setting</th>
                     </tr>
                 </thead>
+                <img src="" alt="">
 
                 <?php
                     $conn = mysqli_connect("localhost", "root", "", "attendance");

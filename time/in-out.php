@@ -27,7 +27,8 @@
         <p><strong>First Name:</strong> <span id="fname"></span></p>
         <p><strong>Contact   :</strong> <span id="contact"></span></p>
         <p><strong>Gender    :</strong> <span id="gender"></span></p>
-        <p><strong>Time in   :</strong> <span id="time_in"></span></p>
+        <p><strong>Time   :</strong> <span id="time_in"></span></p>
+        <p><strong>In/Out   :</strong> <span id="in_out"></span></p>
         <p><strong>Date   :</strong> <span id="date_in"></span></p>
     </div>
     <script src="time.js"></script>
@@ -67,12 +68,13 @@
                                 var data = JSON.parse(response); // Parse JSON response
                                 if (data.success) {
                                     // Populate output fields
-                                    $("#role").text(data.role);
+                                    $("#role").text(data.position);
                                     $("#surname").text(data.surname);
                                     $("#fname").text(data.fname);
                                     $("#contact").text(data.contact);
                                     $("#gender").text(data.gender);
                                     $("#time_in").text(data.c_time);
+                                    $("#in_out").text(data.inOut);
                                     $("#date_in").text(data.c_date);
                                 } else {
                                     alert(data.message);

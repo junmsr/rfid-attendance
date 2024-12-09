@@ -390,6 +390,8 @@ form .photo input[type="file"]{
     display: none;
 }
 
+
+
 form .button-reg input:hover{
     transform: scale(1.05);
 }
