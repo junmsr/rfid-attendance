@@ -25,10 +25,10 @@
                 <label for="password"><img src="../assets/padlock.png" width="20px" height="auto" alt=""></label>
                 <input type="password" id="password" placeholder="password" required>
             </div>
-            <div class="form-element">
+            <!-- <div class="form-element">
                 <input type="checkbox" id="remember-me">
                 <label for="remember-me">Remember me</label>
-            </div>
+            </div> -->
             <div class="form-element">
                 <button id="submit">Sign in</button>
             </div>

@@ -7,7 +7,7 @@ document.querySelector("#admin-login").addEventListener("click", function(){
 document.querySelector(".modal .close-btn").addEventListener("click", function(){
     document.querySelector(".modal").classList.remove("active")
     document.getElementById("box").style.filter = "none";
-    document.getElementById("message").innerHTML = ""
+    document.getElementById("message").innerHTML = "";
 });
 
 document.querySelector(".form-element button").addEventListener("click", function (event) {
@@ -21,6 +21,19 @@ document.querySelector(".form-element button").addEventListener("click", functio
     // Predefined credentials (for demonstration purposes only)
     const validUsername = "admin";
     const validPassword = "capstone";
+
+    // var input = document.getElementById("submit");
+
+    // // Execute a function when the user presses a key on the keyboard
+    // input.addEventListener("keypress", function(event) {
+    // // If the user presses the "Enter" key on the keyboard
+    // if (event.key === "Enter") {
+    //     // Cancel the default action, if needed
+    //     event.preventDefault();
+    //     // Trigger the button element with a click
+    //     document.getElementById("submit").click();
+    // }
+    // }); 
 
     // Check the credentials
     if (username === validUsername && password === validPassword) {

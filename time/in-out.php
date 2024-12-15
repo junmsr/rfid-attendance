@@ -4,33 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RFID Lookup</title>
-    <link rel="stylesheet" href="in-out.css"> <!-- Link to your CSS -->
+    <link rel="stylesheet" href="in-out.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script>
+        // Function to Update Time and Date Dynamically
+        function updateDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+
+            document.getElementById("current-date").textContent = date;
+            document.getElementById("current-time").textContent = time;
+        }
+
+        // Update Every Second
+        setInterval(updateDateTime, 1000);
+
+        // Initial Call
+        window.onload = updateDateTime;
+    </script> -->
 </head>
 <body>
-    <h1>Attendance</h1>
-    
-    <!-- Real-time Date and Time -->
-    <div id="datetime-container">
-        <p><strong>Date:</strong> <span id="current-date"></span></p>
-        <p><strong>Time:</strong> <span id="current-time"></span></p>
+    <!-- Back Button -->
+    <a href="../main/index.php" class="back-button">⬅ Back</a>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Details Section -->
+        <div class="details-section">
+            <h2>RFID Attendance Details</h2>
+            <!-- Profile Image -->
+            <div class="profile-image" id="profile-image"></div>
+
+            <!-- Real-Time Date and Time -->
+            <div class="datetime-container">
+                <p><strong>Date:</strong> <span id="current-date"></span></p>
+                <p><strong>Time:</strong> <span id="current-time"></span></p>
+            </div>
+
+            <!-- RFID Input -->
+            <label for="rfid-tag" class="label-tag">Enter RFID Tag:</label>
+            <input type="text" id="rfid-tag" name="rfid-tag" placeholder="Scan or Enter RFID">
+
+            <!-- Output Fields -->
+            <div class="details-container">
+                <div class="details-row">
+                    <strong>Role:</strong> <span id="role"></span>
+                </div>
+                <div class="details-row">
+                    <strong>Surname:</strong> <span id="surname"></span>
+                </div>
+                <div class="details-row">
+                    <strong>First Name:</strong> <span id="fname"></span>
+                </div>
+                <div class="details-row">
+                    <strong>Contact:</strong> <span id="contact"></span>
+                </div>
+                <div class="details-row">
+                    <strong>Gender:</strong> <span id="gender"></span>
+                </div>
+                <div class="details-row">
+                    <strong>In/Out:</strong> <span id="in_out"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Table -->
+        <div class="table-section" id="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>RFID</th>
+                        <th>Role</th>
+                        <th>Surname</th>
+                        <th>First Name</th>
+                        <th>Contact</th>
+                        <th>Gender</th>
+                        <th>Time</th>
+                        <th>In/Out</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <?php
+                    $conn = mysqli_connect("localhost", "root", "", "attendance");
+                    if(!$conn){
+                        die("Connection failed: ".$conn-> connect_error);
+                    }
+                    $sql = "SELECT rfid, position, surname, fname, contact, gender,  time_log, in_out, date_log from time_table";
+                    $result = $conn-> query($sql);
+
+                    if($result-> num_rows > 0){
+                        while($row = $result-> fetch_assoc()){
+                            echo"<tbody>
+                    <tr>
+                        <td>".$row["rfid"]."</td>
+                        <td>".$row["position"]."</td>
+                        <td>".$row["surname"]."</td>
+                        <td>".$row["fname"]."</td>
+                        <td>".$row["contact"]."</td>
+                        <td>".$row["gender"]."</td>
+                        <td>".$row["time_log"]."</td>
+                        <td>".$row["in_out"]."</td>
+                        <td>".$row["date_log"]."</td>
+                    </tr>
+                </tbody>";
+                        }
+                    }
+                ?>
+            </table>
+        </div>
     </div>
 
-    <!-- Input for RFID -->
-    <label for="rfid-tag" class="label-tag">Enter RFID Tag:</label>
-    <input type="text" id="rfid-tag" name="rfid-tag" placeholder="Scan or Enter RFID">
-    
-    <!-- Output Fields -->
-    <div id="output">
-        <p><strong>Role      :</strong> <span id="role"></span></p>
-        <p><strong>Surname   :</strong> <span id="surname"></span></p>
-        <p><strong>First Name:</strong> <span id="fname"></span></p>
-        <p><strong>Contact   :</strong> <span id="contact"></span></p>
-        <p><strong>Gender    :</strong> <span id="gender"></span></p>
-        <p><strong>Time   :</strong> <span id="time_in"></span></p>
-        <p><strong>In/Out   :</strong> <span id="in_out"></span></p>
-        <p><strong>Date   :</strong> <span id="date_in"></span></p>
-    </div>
     <script src="time.js"></script>
     <script>
         // Real-time Date and Time Script
@@ -49,48 +133,52 @@
         // RFID Lookup AJAX Script
 
         $(document).ready(function() {
-            $("#rfid-tag").on('input', function() {
-                var rfid = $(this).val(); // Get RFID input value
-                var currentTime = new Date().toLocaleTimeString();
-                var currentDate = new Date().toLocaleDateString();
-                // Check if RFID tag is the expected length (e.g., 8 characters)
-                if (rfid.length === 8) {
-                    // Send AJAX request
-                    $.ajax({
-                        url: "fetch&write.php", // Path to the PHP script
-                        type: "POST",
-                        data: { rfid_tag: rfid,
-                            time_in: currentTime,
-                            date_in: currentDate
-                         }, // Send RFID as data
-                        success: function(response) {
-                            try {
-                                var data = JSON.parse(response); // Parse JSON response
-                                if (data.success) {
-                                    // Populate output fields
-                                    $("#role").text(data.position);
-                                    $("#surname").text(data.surname);
-                                    $("#fname").text(data.fname);
-                                    $("#contact").text(data.contact);
-                                    $("#gender").text(data.gender);
-                                    $("#time_in").text(data.c_time);
-                                    $("#in_out").text(data.inOut);
-                                    $("#date_in").text(data.c_date);
-                                } else {
-                                    alert(data.message);
-                                }
-                            } catch (e) {
-                                console.error("Error parsing response: ", e);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error: ", error);
-                        }
-                    });
-                }
-            });
-        });
+        $("#rfid-tag").on('input', function() {
+            var rfid = $(this).val(); // Get RFID input value
+            var currentTime = new Date().toLocaleTimeString();
+            var currentDate = new Date().toLocaleDateString();
 
+            // Check if RFID tag is the expected length (e.g., 8 characters)
+            if (rfid.length === 8) {
+                // Send AJAX request
+                $.ajax({
+                    url: "fetch&write.php", // Path to the PHP script
+                    type: "POST",
+                    data: { 
+                        rfid_tag: rfid,
+                        time_in: currentTime,
+                        date_in: currentDate
+                    }, // Send RFID as data
+                    success: function(response) {
+                        try {
+                            var data = JSON.parse(response); // Parse JSON response
+                            if (data.success) {
+                                // Populate output fields
+                                $("#role").text(data.position);
+                                $("#surname").text(data.surname);
+                                $("#fname").text(data.fname);
+                                $("#contact").text(data.contact);
+                                $("#gender").text(data.gender);
+                                $("#time_in").text(data.c_time);
+                                $("#in_out").text(data.inOut);
+                                $("#date_in").text(data.c_date);
+                            } else {
+                                alert(data.message);
+                            }
+                        } catch (e) {
+                            console.error("Error parsing response: ", e);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error: ", error);
+                    }
+                });
+
+                // Clear the text field for the next input
+                $(this).val('');
+            }
+        });
+    });
     </script>
 </body>
 </html>

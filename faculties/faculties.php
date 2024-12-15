@@ -117,8 +117,8 @@
             </table>
         </div>
         
-        <div class="container-form" id="container-form">
-            <div class="close-btn" id="close-btn">&times;</div>
+        <div class="container-form" id="form-container">
+            <div class="close-btn" id="btn-close">&times;</div>
             <form  method="POST" id="form">
                 <div class="title-form">Register</div>
                 <div class="user-details">
@@ -144,9 +144,10 @@
                     </div>
                     <br>
                     <div class="photo">
+                        <p>Upload a photo</p>
                         <!-- <span class="details">Upload an image</span> -->
                         <input type="file" accept="image/jpeg, image/png, image/jpg" id="upload">
-                        <label for="upload">Upload.</label>
+                        <label for="upload">Choose</label>
                     </div>
                 </div>
                 <div class="gender-details">

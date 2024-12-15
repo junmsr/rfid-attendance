@@ -1,6 +1,6 @@
 const open = document.getElementById('new-faculty');
-const container_form = document.getElementById('container-form');
-const close = document.getElementById('close-btn');
+const container_form = document.getElementById('form-container');
+const close = document.getElementById('btn-close');
 
 open.addEventListener('click', () => {
     container_form.classList.add('show');

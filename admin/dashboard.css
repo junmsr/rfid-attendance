@@ -247,7 +247,7 @@ tbody td.status-inactive {
     position: absolute; /* Use absolute to position it relative to the viewport */
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust for the element's own width and height */
+    transform: translate(-50%, -50%) scale(0); /* Adjust for the element's own width and height */
     border-radius: 5px;
     max-width: 700px;
     opacity: 0;
@@ -282,8 +282,12 @@ tbody td.status-inactive {
 } */
 
 .container-form.show{
+    transform: translate(-50%, -50%) scale(1);
     pointer-events: auto;
     opacity: 1;
+    transition: top 0ms ease-in-out 200ms,
+    opacity 200ms ease-in-out 0ms,
+    transform 20ms ease-in-out 0ms;
 }
 
 .title-form{
@@ -435,3 +439,71 @@ form .button-reg input:hover{
     position: relative;
     margin-top: 10px;
 }
+
+.photo label {
+    background-color: #800000; /* Maroon background color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.photo label:hover {
+    background-color: #9b111e;
+}
+
+/* Style for when the file is selected (optional) */
+
+
+.photo label:active {
+    transform: scale(0.98); /* Slight shrink when button is clicked */
+}
+
+/* Summary Section */
+.summary-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.summary-card {
+    background-color: #FFFFFF;
+    border: 2px solid #8B0D38;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.summary-card h3 {
+    color: #8B0D38;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.summary-card p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Graph Container */
+.graph-container {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#genderChart {
+    max-width: 500px;
+    max-height: 400px;
+}
+

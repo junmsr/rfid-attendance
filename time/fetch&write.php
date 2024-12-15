@@ -19,7 +19,7 @@ if (isset($_POST['rfid_tag']) && !empty($_POST['rfid_tag'])) {
     $rfid = $_POST['rfid_tag'];
     $c_time = $_POST['time_in'];
     $c_date = $_POST['date_in'];
-    $inOut = "";
+    $inOut = "in";
 
     // Prepare the query to check RFID in the logs table
     $query = "SELECT position, surname, fname, contact, gender FROM logs WHERE rfid = ?";
@@ -43,10 +43,10 @@ if (isset($_POST['rfid_tag']) && !empty($_POST['rfid_tag'])) {
         $checkStmt->close();
 
         // Determine the new in_out value
+        $lastInOut = strtolower(trim($lastInOut));
+
         if ($recentRecordExists && $lastInOut === "in") {
             $inOut = "out";
-        } else {
-            $inOut = "in";
         }
 
         // Insert a new record into time_table
