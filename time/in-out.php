@@ -85,32 +85,9 @@
                         <th>Date</th>
                     </tr>
                 </thead>
-                <?php
-                    $conn = mysqli_connect("localhost", "root", "", "attendance");
-                    if(!$conn){
-                        die("Connection failed: ".$conn-> connect_error);
-                    }
-                    $sql = "SELECT rfid, position, surname, fname, contact, gender,  time_log, in_out, date_log from time_table";
-                    $result = $conn-> query($sql);
-
-                    if($result-> num_rows > 0){
-                        while($row = $result-> fetch_assoc()){
-                            echo"<tbody>
-                    <tr>
-                        <td>".$row["rfid"]."</td>
-                        <td>".$row["position"]."</td>
-                        <td>".$row["surname"]."</td>
-                        <td>".$row["fname"]."</td>
-                        <td>".$row["contact"]."</td>
-                        <td>".$row["gender"]."</td>
-                        <td>".$row["time_log"]."</td>
-                        <td>".$row["in_out"]."</td>
-                        <td>".$row["date_log"]."</td>
-                    </tr>
-                </tbody>";
-                        }
-                    }
-                ?>
+                <tbody>
+                    <!-- Data will be populated here by AJAX -->
+                </tbody>
             </table>
         </div>
     </div>
@@ -129,6 +106,23 @@
         // Update the time every second
         setInterval(updateDateTime, 1000);
         updateDateTime(); // Call once to initialize immediately
+
+        function refreshTable() {
+            $.ajax({
+                url: "fetch_table.php", // Path to the PHP script that fetches the latest data
+                type: "GET", // Use GET method to retrieve data
+                success: function(response) {
+                    // Clear the existing table body
+                    $("#table-section tbody").empty();
+
+                    // Append the new data to the table
+                    $("#table-section tbody").append(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching table data: ", error);
+                }
+            });
+        }
 
         // RFID Lookup AJAX Script
 
@@ -162,6 +156,8 @@
                                 $("#time_in").text(data.c_time);
                                 $("#in_out").text(data.inOut);
                                 $("#date_in").text(data.c_date);
+
+                                refreshTable();
                             } else {
                                 alert(data.message);
                             }

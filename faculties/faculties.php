@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../admin/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
                         <span class="icon">
                             <img src="../assets/BISCAST.png" alt="#" width="60px" height="auto">
                         </span>
-                        <span class="title">Admin Dashboard</span>
+                        <span class="title">Attendance System</span>
                     </a>
                 </li>
                 <li>
@@ -59,6 +60,9 @@
             <div class="toggle">
                 <ion-icon name="grid-outline"></ion-icon>
             </div>
+            <div class="title">
+                <h1>Faculties</hassistant></h1>
+            </div>
             <div class="new">
                 <button class="add-new" id="new-faculty"><ion-icon name="person-add-outline"></ion-icon>New</button>
             </div>
@@ -80,28 +84,35 @@
                 <img src="" alt="">
 
                 <?php
-                    $conn = mysqli_connect("localhost", "root", "", "attendance");
-                    if(!$conn){
-                        die("Connection failed: ".$conn-> connect_error);
-                    }
-                    $sql = "SELECT rfid, position, surname, fname, contact, gender from logs";
-                    $result = $conn-> query($sql);
+                $conn = mysqli_connect("localhost", "root", "", "attendance");
+                if(!$conn){
+                    die("Connection failed: ".$conn-> connect_error);
+                }
+                $sql = "SELECT rfid, position, surname, fname, contact, gender from logs";
+                $result = $conn-> query($sql);
 
-                    if($result-> num_rows > 0){
-                        while($row = $result-> fetch_assoc()){
-                            echo"<tbody>
-                    <tr>
-                        <td>".$row["rfid"]."</td>
-                        <td>".$row["position"]."</td>
-                        <td>".$row["surname"]."</td>
-                        <td>".$row["fname"]."</td>
-                        <td>".$row["contact"]."</td>
-                        <td>".$row["gender"]."</td>
-                        <td><a href='delete.php?id=".$row['rfid']."'>Delete</a></td>
-                    </tr>
-                </tbody>";
-                        }
+                if($result-> num_rows > 0){
+                    while($row = $result-> fetch_assoc()){
+                        echo "<tbody>
+                            <tr>
+                                <td>".$row["rfid"]."</td>
+                                <td>".$row["position"]."</td>
+                                <td>".$row["surname"]."</td>
+                                <td>".$row["fname"]."</td>
+                                <td>".$row["contact"]."</td>
+                                <td>".$row["gender"]."</td>
+                                <td>
+                                    <a href='delete.php?id=".$row['rfid']."' class='btn delete' onclick='return confirm(\"Are you sure you want to delete this record?\");'>
+                                        <i class='fas fa-trash-alt'></i> Delete
+                                    </a>
+                                    <a href='#' class='btn update' onclick=\"openModal('".$row['rfid']."', '".$row['position']."', '".$row['surname']."', '".$row['fname']."', '".$row['contact']."', '".$row['gender']."'); return false;\">
+                                        <i class='fas fa-edit'></i> Update
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>";
                     }
+                }
                 ?>
                 <!-- <tbody>
                     <tr>
@@ -116,10 +127,53 @@
                 </tbody> -->
             </table>
         </div>
+
+        <!-- Update Modal -->
+        <!-- Update Modal -->
+        <div class="modal" id="updateModal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <form method="POST" id="updateForm" action="update_process.php">
+                    <div class="modal-header">
+                        <h2>Update Faculty</h2>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="rfid" id="rfid">
+                        <div class="input-box">
+                            <label for="role">Role:</label>
+                            <input type="text" id="role" name="role" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="surname">Surname:</label>
+                            <input type="text" id="surname" name="surname" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="fname">First Name:</label>
+                            <input type="text" id="fname" name="fname" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="contact">Contact No:</label>
+                            <input type="text" id="contact" name="contact" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="n/a">Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="updateButton">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         
         <div class="container-form" id="form-container">
             <div class="close-btn" id="btn-close">&times;</div>
-            <form  method="POST" id="form">
+            <form  method="POST" id="form" enctype="multipart/form-data">
                 <div class="title-form">Register</div>
                 <div class="user-details">
                     <div class="input-box">
@@ -179,6 +233,35 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Get the modal
+        var modal = document.getElementById("updateModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementById("closeModal");
+
+        // Function to open the modal and populate it with data
+        function openModal(rfid, role, surname, fname, contact, gender) {
+            document.getElementById("rfid").value = rfid;
+            document.getElementById("role").value = role;
+            document.getElementById("surname").value = surname;
+            document.getElementById("fname").value = fname;
+            document.getElementById("contact").value = contact;
+            document.getElementById("gender").value = gender;
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
         $("#register").click(function() {
             $.ajax({
                 url: "logs.php",
@@ -187,6 +270,7 @@
                 success: function(response) {
                     console.log("Server Response: ", response); // Log response for debugging
                     $("#response").html(response);
+                    window.location.reload();
                 },
                 error: function(xhr, status, error) {
                     console.error("AJAX Error: ", error);

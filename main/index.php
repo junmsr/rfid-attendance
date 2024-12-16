@@ -37,6 +37,17 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('submit').addEventListener('click', function() {
+
+        });
+
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('submit').click();
+            }
+        });
+    </script>
     <script src="popup.js"></script>
     <script src="../admin/admin.js"></script>
 </body>

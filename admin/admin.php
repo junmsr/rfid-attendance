@@ -19,7 +19,7 @@
                         <span class="icon">
                             <img src="../assets/BISCAST.png" alt="#" width="60px" height="auto">
                         </span>
-                        <span class="title">Admin Dashboard</span>
+                        <span class="title">Attendance System</span>
                     </a>
                 </li>
                 <li>
@@ -63,6 +63,9 @@
             <div class="toggle">
                 <ion-icon name="grid-outline"></ion-icon>
             </div>
+            <div class="title">
+                <h1>Summary</hassistant></h1>
+            </div>
         </div>
         <div class="summary-container">
             <!-- Summary Report -->
@@ -89,45 +92,42 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fetch summary data
             fetch('fetch_summary.php')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Summary data fetched:", data); // Debug log
-
-        document.getElementById('total-faculties').textContent = data.total || 0;
-        document.getElementById('male-faculties').textContent = data.male || 0;
-        document.getElementById('female-faculties').textContent = data.female || 0;
-
-        // Render Gender Distribution Chart
-        const ctx = document.getElementById('genderChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Male Faculties', 'Female Faculties'],
-                datasets: [{
-                    label: 'Gender Distribution',
-                    data: [data.male, data.female],
-                    backgroundColor: ['#3498db', '#e74c3c'],
-                    hoverBackgroundColor: ['#2980b9', '#c0392b']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Gender Distribution of Faculties' }
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('total-faculties').textContent = data.total || 0;
+                document.getElementById('male-faculties').textContent = data.male || 0;
+                document.getElementById('female-faculties').textContent = data.female || 0;
+
+                // Render Gender Distribution Chart
+                const ctx = document.getElementById('genderChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Male Faculties', 'Female Faculties'],
+                        datasets: [{
+                            label: 'Gender Distribution',
+                            data: [data.male, data.female],
+                            backgroundColor: ['#3498db', '#e74c3c'],
+                            hoverBackgroundColor: ['#2980b9', '#c0392b']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: 'Gender Distribution of Faculties' }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching summary data:', error));
         });
-    })
-    .catch(error => console.error('Error fetching summary data:', error));
-});
     </script>
 
 

@@ -15,7 +15,7 @@
                         <span class="icon">
                             <img src="../assets/BISCAST.png" alt="#" width="60px" height="auto">
                         </span>
-                        <span class="title">Admin Dashboard</span>
+                        <span class="title">Attendance System</span>
                     </a>
                 </li>
                 <li>
@@ -58,6 +58,9 @@
         <div class="topbar">
             <div class="toggle">
                 <ion-icon name="grid-outline"></ion-icon>
+            </div>
+            <div class="title">
+                <h1>Attendance Log</hassistant></h1>
             </div>
         </div>
         
