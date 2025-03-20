@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container" id="box">
+        <img src="../assets/BISCAST.png" alt="" width="100px" height="auto">
         <h1>RFID-Based Attendance System</h1>
         <div class="button-group">
             <button id="admin-login" class="role-button admin-button"> <img src="../assets/human.png" width="50vh" height="auto" alt="#"><br>Admin</button><br>

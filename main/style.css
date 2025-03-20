@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 body {
-    font-family: Arial, sans-serif;
+    background-image: url('../assets/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Ubuntu', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
+    background-repeat: no-repeat;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
     background-color: #f0f4f8;
 }
 
